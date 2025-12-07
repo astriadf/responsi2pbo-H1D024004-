@@ -1,0 +1,23 @@
+Pertanyaan Refleksi
+Setelah menyelesaikan kode, jawab pertanyaan berikut:
+
+1. Apa itu abstract class dan Kenapa kita membutuhkan Abstarct class?
+2. Apa perbedaan utama antara abstract class dan class biasa dalam pemrograman berorientasi objek? 
+3. Mengapa subclass wajib mengimplementasikan semua abstract method dari parent class?
+4. Mengapa abstract method tidak boleh memiliki isi implementasi di dalam abstract class?
+5. Bagaimana abstract class dapat mendukung konsep polimorfisme, dan mengapa objek yang direferensikan melalui tipe abstract class tetap dapat menjalankan perilaku berbeda pada masing-masing subclass?
+
+Jawaban
+1. Abstract class adalah class yang tidak bisa dibuat objeknya (tidak bisa new ...) dan berfungsi sebagai "kerangka" atau "template" untuk subclass-nya. Abstract class digunakan untuk menyediakan method umum yang bisa dipakai semua subclass, memaksa subclass untuk mengimplementasikan method tertentu (yang abstract) dan membantu menerapkan polimorfisme dengan terstruktur.
+
+2. - Abstract class memakai kata kunci 'abstract', class biasa tidak
+   - Abstract class punya abstract method (tanpa isi), class biasa tidak
+   - Abstract class tidak bisa dibuat objek langsung, class biasa bisa
+   - Abstract class dibuat untuk diwariskan, bukan untuk dipakai langsung
+
+3. Karena abstract method itu meyakinkan bahwa subclass akan menyediakan cara kerjanya sendiri. Jika tidak diimplementasi, subclass-nya otomatis jadi abstract juga dan Java akan menampilkam pesan (compile error).
+
+4. Abstract method cuma "template" atau "kontrak" perilaku. Isi implementasi diserahkan ke subclass sesuai kebutuhan masing-masing. Kalau sudah ada isi, namanya bukan abstract lagi, melainkan method biasa.
+
+5. Misal membuat satu referensi bertipe abstract class (mis. kendaraanGalaksi) yang menunjuk ke objek subclass berbeda (pesawatTempur atau kapalEksplorasi). Saat runtime Java akan menjalankan versi method yang ada di objek sebenarnya (dynamic dispatch), sehingga satu baris kode bisa menghasilkan perilaku berbeda tergantung objek yang sedang ditunjuk.
+   Contoh: kendaraan.aktifkanMesin() → pesawat akan ngomong "Mesin pesawat tempur diaktifkan", kapal akan ngomong "Kapal eksplorasi siap berangkat!"

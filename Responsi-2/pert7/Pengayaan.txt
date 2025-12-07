@@ -1,0 +1,82 @@
+Pertanyaan Refleksi
+Setelah menyelesaikan kode, jawab pertanyaan berikut:
+
+1. Apa perbedaan antara interface dengan class biasa?
+2. Mengapa interface tidak memiliki implementasi method di dalamnya?
+3. Apa tujuan penggunaan keyword "implements" pada sebuah class?
+4. Apakah sebuah class dapat mengimplementasikan lebih dari satu interface? Jelaskan dan berikan contoh sederhana.
+5. Jika sebuah class mengimplementasikan interface, apa yang terjadi jika class tersebut tidak mengimplementasikan semua method dari interface tersebut?
+
+Jawaban
+1. Interface hanya deklarasi method (tanpa isi), class biasa punya atribut & method lengkap,
+   Interface pakai keyword 'interface', class pakai 'class',
+   Interface tidak bisa dibuat objek langsung, class biasa bisa
+   Class bisa punya constructor, interface tidak
+   Class cuma bisa extends satu parent, tapi bisa implements banyak interface
+
+2. Interface berfungsi sebagai "kontrak" atau "template" perilaku. Isi methodnya diserahkan ke class yang mengimplementasikannya, jadi tiap class bisa punya cara kerja sendiri-sendiri.
+
+3. Menandakan bahwa class tersebut bersedia memenuhi "kontrak" interface yaitu menulis semua method yang ada di interface.
+   Contoh: class EWalletPayment implements PaymentMethod → harus ada processPayment(), getPaymentDetails(), dll.
+
+4. Ya, dapat. Java memperbolehkan multiple interface agar satu objek bisa punya banyak kemampuan.
+   Contoh:
+        // Interface 1
+        interface PaymentMethod {
+            void processPayment();
+            String getPaymentDetails();
+        }
+
+        // Interface 2 (bikin sendiri sebagai contoh)
+        interface Refundable {
+            void refund();
+        }
+
+        // Class yang mengimplementasikan DUA interface
+        class EWalletPayment implements PaymentMethod, Refundable {
+            String namaLayanan;
+            double saldo;
+            double nominal;
+
+            EWalletPayment(String nama, double saldo, double nominal) {
+                this.namaLayanan = nama;
+                this.saldo = saldo;
+                this.nominal = nominal;
+            }
+
+            // Dari PaymentMethod
+            @Override
+            public void processPayment() {
+                if (saldo >= nominal) {
+                    saldo -= nominal;
+                    System.out.println("Pembayaran berhasil!");
+                } else {
+                    System.out.println("Pembayaran gagal! Saldo tidak cukup.");
+                }
+            }
+
+            @Override
+            public String getPaymentDetails() {
+                return "Pembayaran melalui " + namaLayanan;
+            }
+
+            // Dari Refundable (contoh interface kedua)
+            @Override
+            public void refund() {
+                saldo += nominal;
+                System.out.println("Refund berhasil! Saldo dikembalikan.");
+            }
+        }
+   nanti cara menggunakannya di paymentTest.java berisi:
+        class PaymentTest {
+            public static void main(String[] args) {
+                EWalletPayment e = new EWalletPayment("OVO", 150000, 50000);
+
+                e.processPayment();     // dari PaymentMethod
+                e.refund();             // dari Refundable
+            }
+        }
+   Jadi, satu class (EWalletPayment) bisa mengimplementasikan lebih dari satu interface (PaymentMethod dan Refundable), sehingga objeknya punya kemampuan dari dua "kontrak" sekaligus.
+
+5. Jika class tidak implementasi semua method interface?
+      Class tersebut akan otomatis jadi "abstract" dan Java akan menolak compile-nya kecuali class itu sendiri dideklarasikan abstract (yang berarti tidak bisa dibuat objeknya).

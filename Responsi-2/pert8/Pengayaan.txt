@@ -1,0 +1,20 @@
+Setelah anda menyelesaikan kode, tolong jawab pertanyaan dibawah ini ya =
+
+
+1. Apa tujuan utama adanya interface dalam pemrograman berorientasi objek, dan bagaimana interface membantu menciptakan kontrak perilaku?
+2. Mengapa interface dapat memiliki banyak implementasi, dan apa makna konseptual dari kemampuan tersebut dalam desain sistem?
+3. Apa perbedaan mendasar antara extends dan implements dalam konteks interface, jika dilihat secara konsep tanpa melihat contoh kode?
+4. Apa alasan diperkenalkannya default method dalam interface, dan bagaimana fitur ini memengaruhi keberlangsungan (compatibility) suatu sistem yang sudah berjalan?
+5. Bagaimana konsep multiple interface memperluas fleksibilitas desain tanpa menimbulkan masalah kompleksitas yang biasa muncul pada multiple inheritance?
+
+Jawaban
+1. Interface menetapkan APA yang harus dilakukan oleh class, bukan BAGAIMANA caranya. Dengan interface kita bisa memastikan bahwa class-class yang berbeda-beda tetap memiliki method-method dengan nama dan tipe sama.
+
+2. Interface adalah spesifikasi umum, sedangkan implementasi adalah detail spesifiknya. Karena tiap sesuatu bisa punya cara kerja sendiri, interface memungkinkan mereka tetap "pas" dalam sistem besar.
+   Secara konseptual contohnya itu stopkontak listrik: bentuk lubangnya sama (interface), tapi isi perangkat yang dipasang bisa berbeda-beda (implementasi).
+
+3. extends itu versi lebih khususnya jadi bisa menambah/mengubah perilaku dasar dan hanya boleh satu kali, implements menambah kemampuan baru tanpa mengubah dasarnya dan boleh diimplementasiin berkali-kali.
+
+4. default method diperkenalkan supaya interface dapat memiliki implementasi "bawaan". Bertujuan apabila interface perlu ditambah method baru, semua class yang sudah jadi tidak perlu rusak/berubah. Class yang lama tetap kompatibel (menggunakan implementasi default) sementara class baru boleh di-override kalau mau.
+
+5. Multiple inheritance (banyak parent class) dapat menyebabkan konflik nama field atau method. Multiple interface (banyak kontrak) tetap aman karena tidak ada field yang bisa tabrakan, kalau ada method sama isinya tinggal di-override sekali di implementasi class.
